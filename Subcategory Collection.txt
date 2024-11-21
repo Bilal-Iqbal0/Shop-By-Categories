@@ -1,0 +1,225 @@
+{% schema %}
+{
+  "name": "Subcategory Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "my-title",
+      "label": "Main Title",
+      "default": "Shop By Categories"
+    }
+  ],
+
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+                {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Custom Image"
+        },
+        {
+          "type": "collection",
+          "id": "collection_link",
+          "label": "Select Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Subcategory Collection Bil",
+      "category": "Custom"
+    }
+  ],
+  "max_blocks": 6
+}
+{% endschema %}
+<div class="custom-title-section">
+  <h2 class="category-section">{{ section.settings['my-title'] }}</h2>
+</div>
+<div class="subcategory-collection">
+  <div class="subcategory-grid">
+    {% for block in section.blocks %}
+      {% assign collection = collections[block.settings.collection_link] %}
+      {% if collection %}
+        <div class="subcategory-item">
+          <a href="{{ collection.url }}">
+            <div class="subcategory-image">
+              {% if block.settings.custom_image %}
+                <!-- Custom Image -->
+                <img src="{{ block.settings.custom_image | img_url: '600x600' }}" alt="Custom Image">
+              {% else %}
+                {% if collection.image %}
+                  <!-- Collection Image -->
+                  <img src="{{ collection.image | img_url: '600x600' }}" alt="{{ collection.title }}">
+                {% else %}
+                  <!-- Placeholder Image -->
+                  <img src="//placehold.co/150x150?text=No+Image" alt="No Image">
+                {% endif %}
+              {% endif %}
+            </div>
+            <div class="subcategory-info">
+              <h3>{{ collection.title }}</h3>
+              <p>{{ collection.products_count }} Products</p>
+            </div>
+          </a>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+        .subcategory-collection {
+          text-align: center;
+          padding: 20px;
+        }
+        .subcategory-collection .title {
+          font-size: 24px;
+          font-weight: bold;
+          margin-bottom: 20px;
+        }
+        .subcategory-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+
+          justify-content: center;
+        }
+        .subcategory-item {
+          text-align: center;
+        }
+        .subcategory-image img {
+          width: 150px;
+          height: 150px;
+          border-radius: 50%;
+          object-fit: cover;
+              }
+        .subcategory-info h3 {
+          font-size: 16px;
+          font-weight: bold;
+          margin: 10px 0 5px;
+        }
+        .subcategory-info p {
+          font-size: 14px;
+          color: #888;
+        }
+        .custom-title-section{
+          text-align:center;
+          font-wieght:600;
+          font-size:22px;
+          margin-bottom:60px;
+           margin-top:60px;
+        }
+        .category-section {
+              font-size: 30px !important;
+              font-weight: 600!important;
+          }
+
+      }
+
+         }
+
+
+      @media(max-width:350px){
+        .subcategory-collection{
+          display: inline;
+
+        }
+      }
+
+      @media(min-width:800px) and (max-width:1024px) {
+         .subcategory-image img {
+
+          margin-left: 40px;
+        }
+
+       }
+
+      @media(min-width:1200px) and (max-width:1280px){
+        .subcategory-image img {
+
+          margin-left: 70px;
+        }
+        .subcategory-collection {
+        text-align: center;
+        padding: 0px 220px 0px 220px;
+    }
+        .subcategory-info{
+          padding-left: 82px;
+        }
+      }
+       @media(min-width:1300px) and (max-width:1380px){
+        .subcategory-image img {
+
+          margin-left: 70px;
+        }
+         .subcategory-collection {
+        text-align: center;
+        padding: 0px 220px 0px 220px;
+    }
+          .subcategory-info{
+          padding-left: 82px;
+        }
+      }
+      @media(min-width:1400px) and (max-width:1600px){
+        .subcategory-image img {
+
+          margin-left: 96px;
+        }
+        .subcategory-collection {
+        text-align: center;
+        padding: 0px 290px 0px 220px;
+    }
+         .subcategory-info{
+          padding-left: 104px;
+            white-space: nowrap;
+        }
+      }
+      @media(min-width:1700px) and (max-width:2250px){
+        .subcategory-image img {
+
+          margin-left: 150px;
+        }
+        .subcategory-collection {
+        text-align: center;
+        padding: 20px 550px 100px 350px;
+    }
+         .subcategory-info{
+          padding-left: 166px;
+            white-space: nowrap;
+        }
+      }
+
+      @media(min-width:2300px) and (max-width:2600px){
+        .subcategory-image {
+
+        .subcategory-collection {
+        text-align: center;
+        padding: 20px 305px 0px 220px;
+    }
+         .subcategory-info{
+          padding-left: 104px;
+            white-space: nowrap;
+        }
+      }
+
+        .subcategory-info h3,
+  .subcategory-info p,
+  .subcategory-item a {
+      text-decoration: none !important;
+  }
+
+  .subcategory-item a:hover,
+  .subcategory-info h3:hover,
+  .subcategory-info p:hover {
+      text-decoration: none !important;
+  }
+
+  .subcategory-collection a::before,
+  .subcategory-collection a::after {
+      text-decoration: none !important;
+  }
+</style>
